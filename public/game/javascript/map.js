@@ -46,8 +46,5 @@ export class Map {
 		this.battleField.squads.forEach(squad => {
 			squad.draw(context, res => {callback(res)});
 		});
-		// for(let i = 0, l = this.state.characters.length; i < l; i++) {
-		// 	this.state.characters[i].drawCharacter(context);
-		// }
 	}
 }

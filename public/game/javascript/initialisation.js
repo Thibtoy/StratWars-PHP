@@ -18,7 +18,7 @@ xhr.addEventListener('readystatechange', function() {
     	canva.height = map.getHeight()*32;
     	canva.style.position = "absolute";
 		canva.style.left = "calc(50% - "+(canva.width/2)+"px)";
-		map.battleField.addSquad(new Squad('Skull', 22, 3, 0));
+		map.battleField.addSquad(new Squad('Skull', 21, 8, 0));
 		map.battleField.addSquad(new Squad('Skull', 20, 3, 0));
 		window.onload = function() {
 			map.drawMap(context);
@@ -45,21 +45,6 @@ function tryMouve(event) {
 	console.log(way);
 	if (way) mouveSquad(this, way);
 	else return;
-	// let wanted = this.mouvable.find(element => (element.line === Math.floor(event.layerY/32) && element.cell=== Math.floor(event.layerX/32)));
-	// if (!wanted) return;
-	// let lineMouve = wanted.line - this.y;
-	// let cellMouve = wanted.cell - this.x;
-	// let lineAction = (lineMouve < 0)? 'MOUVE_TOP': 'MOUVE_DOWN';
-	// let cellAction = (cellMouve < 0)? 'MOUVE_LEFT': 'MOUVE_RIGHT';
-	// if (Math.abs(lineMouve) > Math.abs(cellMouve)) {
-	// 	for (let i = 0, l = Math.abs(wanted.line - this.y); i < l; i++) this.eventPile.push({squad: this, action: lineAction});
-	// 	for (let i = 0, l = Math.abs(wanted.cell - this.x); i < l; i++) this.eventPile.push({squad: this, action: cellAction});
-	// }
-	// else {
-	// 	for (let i = 0, l = Math.abs(wanted.cell - this.x); i < l; i++) this.eventPile.push({squad: this, action: cellAction});
-	// 	for (let i = 0, l = Math.abs(wanted.line - this.y); i < l; i++) this.eventPile.push({squad: this, action: lineAction});
-	// }
-	// mouveSquad(this);
 }
 
 async function mouveSquad (squad, way){
@@ -115,7 +100,7 @@ function click(event) {
    	if(!squad.tryMouve) squad.tryMouve = tryMouve.bind(squad);
    	let deplacementField = new Array();
    	for (let i = -squad.mouve, l = squad.mouve; i <= l; i++) {
-   		let k = Math.abs(i); //nombre de cases qui seront non visibles (on fait cette opération pour récupérer un entier positif).
+   		let k = Math.abs(i);
    		let row = new Array();
    		for (let j = -squad.mouve; j <= l; j++) {
    			if ((j >= -(l-k)) && (j <= (l-k)) && (j != 0 || i != 0)) {
@@ -128,7 +113,7 @@ function click(event) {
     					map.layers[8].field[line][cell] = "00";
     					row.push(null);
     				}
-    				else row.push({line, cell}); //, access: map.battleField.field[line][cell]   							
+    				else row.push({line, cell});  							
     			}
     			else row.push(null);
     		}
@@ -139,5 +124,4 @@ function click(event) {
     mouvement(deplacementField, squad, map);
     map.drawMap(context);
     canva.addEventListener('click', squad.tryMouve);
-    console.log(map.battleField.field);
 }

@@ -17,6 +17,12 @@ export function mouvement(deplacementField, squad, map) {
 			}
 		});
 	});
-	// let scenario = new Scenario(startPoint, deplacementField, {y: 10, x: 4}, squad.mouve);
-	// console.log(scenario);
+	// let pathFinder = new PathFinder(startPoint, deplacementField, {y: 4, x: 11}, squad.mouve);
+	// pathFinder.run();
+	// console.log(pathFinder);
+	// let bestWay = pathFinder.getBestWay();
+	// if (!bestWay) map.layers[8].field[position.line][position.cell] = "00";
+	// else {
+	// 	deplacementField[i][j] = {pathFinder, position, route: bestWay.route};
+	// }
 };

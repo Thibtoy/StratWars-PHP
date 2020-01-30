@@ -17,6 +17,5 @@
 	<div id="Content">
 		<?= $content ?>
 	</div>
-	<script type="text/javascript" src="public/game/javascript/initialisation.js"></script>
 </body>
 </html>
