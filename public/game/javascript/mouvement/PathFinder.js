@@ -8,24 +8,23 @@ export class PathFinder {
 	}
 
 	run = () => {
-		let scenario = new Scenario(
+		this.scenarios.push(new Scenario(
 			this.state.startPoint, 
 			this.state.deplacementField, 
 			this.state.endPoint, 
 			this.state.mouve, 
 			this.results,
 			this.scenarios,
-		);
-		this.scenarios.push(scenario);
+		));
 		while (this.statut != 'end') {
 			let end = true;
 			for (let i = 0, l = this.scenarios.length; i < l; i++) {
 				if (this.scenarios[i].statut === "running") {
 					end = false;
-					this.scenarios[i].run();
+					this.scenarios[i].mouve();
 				}
 			}
-			if (end) this.statut = "end";
+			if (end || this.results.length > 0) this.statut = "end";
 		}
 	}
 
@@ -35,6 +34,6 @@ export class PathFinder {
 			bestWay = (!bestWay)? this.results[i]: bestWay;
 			bestWay = (this.results[i].state.mouvement > bestWay.state.mouvement)? this.results[i]: bestWay; 
 		}
-		return bestWay;
+		return bestWay.route;
 	}
 }

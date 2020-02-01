@@ -11,9 +11,10 @@ export function mouvement(deplacementField, squad, map) {
 			let pathFinder = new PathFinder(startPoint, deplacementField, endPoint, squad.mouve);
 			pathFinder.run();
 			let bestWay = pathFinder.getBestWay();
+			pathFinder = null;
 			if (!bestWay) map.layers[8].field[position.line][position.cell] = "00";
 			else {
-				deplacementField[i][j] = {pathFinder, position, route: bestWay.route};
+				deplacementField[i][j] = {position, route: bestWay};
 			}
 		});
 	});

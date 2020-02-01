@@ -9,7 +9,7 @@ const DUREE_DEPLACEMENT = 9;
 
 export class Squad {
 	constructor(name, x, y, direction) {
-		this.mouve = 25;
+		this.mouve = 12;
 		this.mouvable = new Array();
 		this.eventPile = new Array();
 		this.x = x;
@@ -59,52 +59,5 @@ export class Squad {
 			(this.x * 32) + decalageX, ((this.y * 32) - 8) + decalageY,
 			this.width, this.height,
 		);
-	}
-
-	goTo = (position, i, j, deplacementField) => {
-		let y0 = Math.floor(deplacementField.length/2); // this.mouve
-		let x0 = Math.floor(deplacementField[0].length/2); // this.mouve
-		let x = x0;
-		let y = y0;
-		let crossing = new Array();
-		let tryedPositions = new Array();
-		// for (let count = 0, l = this.mouve; count < l; count++) {
-		// 	let mouve = (i < y)? ( (j < x)?  [(y - i),  (x - j)] : [(y - i),  (x - j)] ) : ( (j < x)?  [(y - i),  (x - j)] :  [(y - i),  (x - j)]);
-		// 	if(Math.abs(mouve[0]) > Math.abs(mouve[1])) {
-		// 		if (mouve[0] < 0) {
-		// 			if (deplacementField[y - 1][x] != "10") y--;
-		// 			else if (mouve[1] < 0) {
-		// 				if (deplacementField[y][x - 1] != "10") x--;
-		// 				else x++
-		// 			}
-		// 		}
-		// 		if (mouve[0] < 0) {
-		// 			if (deplacementField[y - 1][x] != "10") y--;
-		// 		}
-		// 	}
-		// }
-		// console.log(y, y0);
-		// if (Math.abs(y0 - i) > Math.abs(x0 - j)) {
-		// 	if (i < y0) {
-		// 		for (let try = 0, l = this.mouve; i < l; i++) {
-		// 			if (try === 0) {
-		// 				if(deplacementField[i][j] != null) {
-		// 					if (deplacementField[i])
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// } 
-				
-	}
-
-	getMouve = (deplacementField) => {
-		deplacementField.forEach((line, i) => {
-			line.forEach((position, j) => {
-				if (!position) return;
-				this.goTo(position, i, j, deplacementField);
-			});
-		});
-		console.log(deplacementField);
 	}
 }
