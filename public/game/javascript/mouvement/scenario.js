@@ -5,32 +5,14 @@ const DIRECTION = {
 	LEFT:  {y: 0, x: -1, mouve: "MOUVE_LEFT"}
 }
 
-export class Scenario {
-	constructor(startPoint, deplacementField, endPoint, mouvement, results, scenarios, history = new Array(), route = new Array()) {//, scenariosHistory = new Array()
+export class Scenario {// ré implementer le not wantedDir, propre à chaque scenario (un scenario qui se lance en mouve right, not wanted left CQFD tmtc)
+	constructor(startPoint, deplacementField, endPoint, mouvement, results, scenarios, history = new Array(), route = new Array()) {
 		this.state = {startPoint, deplacementField, endPoint, mouvement, history, position: startPoint};
 		this.route = route;
 		this.scenarios = scenarios;
 		this.results = results;
 		this.statut = "running";	
-		//this.scenariosHistory = scenariosHistory;	
 	}
-	// 	this.mouve();
-	// 	if (this.statut != "running") {
-	// 		let nextScenarios = false;
-	// 		while (!nextScenarios) {
-	// 			if (this.waitingScenarios.length > 0) {
-	// 				let scenarios = this.waitingScenarios.pop();
-	// 				if (scenarios.length > 0) {
-	// 					nextScenarios = true;
-	// 					scenarios.forEach(scenario => {
-	// 						this.scenarios.push(scenario);
-	// 					});
-	// 				}	
-	// 			}
-	// 			else nextScenarios = true;	
-	// 		}	
-	// 	}
-	
 
 	mouve = () => {
 		this.direction = this.getDirection();

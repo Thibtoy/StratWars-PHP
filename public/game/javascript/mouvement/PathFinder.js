@@ -5,9 +5,6 @@ export class PathFinder {
 		this.state = {startPoint, deplacementField, endPoint, mouve, position: startPoint}
 		this.results = new Array();
 		this.scenarios = new Array();
-	}
-
-	run = () => {
 		this.scenarios.push(new Scenario(
 			this.state.startPoint, 
 			this.state.deplacementField, 
@@ -16,15 +13,20 @@ export class PathFinder {
 			this.results,
 			this.scenarios,
 		));
+	}
+
+	run = () => {
 		while (this.statut != 'end') {
 			let end = true;
+			if (this.results.length > 0) this.remainingMouves = this.getBestWay().state.mouvement;
 			for (let i = 0, l = this.scenarios.length; i < l; i++) {
 				if (this.scenarios[i].statut === "running") {
-					end = false;
+					if (this.remainingMouves && this.scenarios[i].state.mouvement < this.remainingMouves) this.scenarios[i].statut = "echec";
+					else end = false;
 					this.scenarios[i].mouve();
 				}
 			}
-			if (end || this.results.length > 0) this.statut = "end";
+			if (end) this.statut = "end";
 		}
 	}
 
@@ -34,6 +36,6 @@ export class PathFinder {
 			bestWay = (!bestWay)? this.results[i]: bestWay;
 			bestWay = (this.results[i].state.mouvement > bestWay.state.mouvement)? this.results[i]: bestWay; 
 		}
-		return bestWay.route;
+		return bestWay;
 	}
 }

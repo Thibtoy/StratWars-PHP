@@ -18,7 +18,7 @@ xhr.addEventListener('readystatechange', function() {
     	canva.height = map.getHeight()*32;
     	canva.style.position = "absolute";
 		canva.style.left = "calc(50% - "+(canva.width/2)+"px)";
-		map.battleField.addSquad(new Squad('Skull', 21, 8, 0));
+		map.battleField.addSquad(new Squad('Skull', 22, 3, 0));
 		map.battleField.addSquad(new Squad('Skull', 20, 3, 0));
 		window.onload = function() {
 			map.drawMap(context);
@@ -107,7 +107,7 @@ function click(event) {
    				let line = squad.y + i;
    				let cell = squad.x + j;
    				if ((line >= 0 && line < map.getHeight()) && (cell >= 0 && cell < map.getWidth())) {
-    				map.layers[8].field[line][cell] = "01"; 
+    				map.layers[8].field[line][cell] = "08"; 
     				squad.mouvable.push({line, cell});
     				if (map.battleField.field[line][cell] === "09") {
     					map.layers[8].field[line][cell] = "00";
