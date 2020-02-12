@@ -9,7 +9,7 @@ const DUREE_DEPLACEMENT = 9;
 
 export class Squad {
 	constructor(name, x, y, direction) {
-		this.mouve = 40;
+		this.mouve = 12;
 		this.mouvable = new Array();
 		this.eventPile = new Array();
 		this.x = x;
