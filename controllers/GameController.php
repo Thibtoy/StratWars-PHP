@@ -1,7 +1,7 @@
 <?php
 namespace Application\controllers;
 
-//use Application\models\CommentsModel;
+use Application\game\mouvement\Wave;
 
 class GameController {
 
@@ -14,6 +14,8 @@ class GameController {
 	// }
 
 	public function gameIndex() {
+		// $wave = new Wave('coucou', 'toi');
+		// var_dump($wave);
 		require('./views/gameTemplate.php');
 	}
 

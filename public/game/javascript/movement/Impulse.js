@@ -1,14 +1,14 @@
 const DIRECTION = {
-	TOP: {y: -1, x: 0, mouve: "MOUVE_TOP"},
-	DOWN: {y: 1, x: 0, mouve: "MOUVE_DOWN"},
-	RIGHT: {y: 0, x: 1, mouve: "MOUVE_RIGHT"},
-	LEFT:  {y: 0, x: -1, mouve: "MOUVE_LEFT"}
+	TOP: {y: -1, x: 0, move: "MOVE_TOP"},
+	DOWN: {y: 1, x: 0, move: "MOVE_DOWN"},
+	RIGHT: {y: 0, x: 1, move: "MOVE_RIGHT"},
+	LEFT:  {y: 0, x: -1, move: "MOVE_LEFT"}
 }
 
 export class Impulse {
 	constructor(state, direction, reachable, impulseList = new Array(), history = new Array(), route = new Array()) {
 		this.position = {y: (state.position.y + direction.y), x: (state.position.x + direction.x)};
-		this.move = state.move - 1;// !!!!tchecker le type de case (foret/montagne/route/default)
+		this.move = state.move - 1;
 		this.map = state.map;
 		this.reachable = reachable;
 		this.impulseList = impulseList;
@@ -16,7 +16,7 @@ export class Impulse {
 		this.route = route;
 		this.statut = 'run';
 		this.history.push({y: state.position.y, x: state.position.x});
-		this.route.push(direction.mouve);
+		this.route.push(direction.move);
 		if (!this.reachable[this.position.y+'$'+this.position.x]) 
 			this.reachable[this.position.y+'$'+this.position.x] = new Array();
 		this.reachable[this.position.y+'$'+this.position.x].push({move: this.move, route: this.route});
@@ -25,9 +25,9 @@ export class Impulse {
 	impulse = () => {
 		let that = this;
 		for (let dir in DIRECTION) {
-			if(this.mouveIsPossible(DIRECTION[dir])) {				
+			if(this.moveIsPossible(DIRECTION[dir])) {				
 				let	route = this.copyArray(this.route),
-					history = this.copyArray(this.history),// pas possible :( ou trouver moy de limiter la surcharge de calcul
+					history = this.copyArray(this.history),
 					state = {
 						position: this.position,
 						move: this.move,
@@ -39,11 +39,10 @@ export class Impulse {
 		this.statut = 'end';
 	}
 
-	mouveIsPossible = direction => {
+	moveIsPossible = direction => {
 		if (this.move > 0
 			&& this.inField(direction)
 				&& this.notInHistory(direction)
-					//&& this.notInWrongWay(direction)
 					 	//&& this.notInImpulseList(direction)
 			  				&& (!this.reachable[(this.position.y + direction.y)+'$'+(this.position.x + direction.x)] || this.goodWay(direction))
 			  					&& this.map.battleField.field[this.position.y + direction.y][this.position.x + direction.x] != "09"
@@ -80,18 +79,6 @@ export class Impulse {
 		if (that.impulseList.find(position => (position.y === nextPosition.y && position.x === nextPosition.x)))
 			return false;
 		else return true;
-	}
-
-	notInWrongWay = direction => {
-		let that = this,
-			nextPosition = {y: (that.position.y + direction.y), x: (that.position.x + direction.x)},
-			result = true;
-		for (let dir in DIRECTION) {
-			if (that.position.y === (nextPosition.y + DIRECTION[dir].y) && that.position.x === (nextPosition.x + DIRECTION[dir].x)) continue;
-			else if (that.history.find(position => (position.y === (nextPosition.y + DIRECTION[dir].y)) && (position.x === (nextPosition.x + DIRECTION[dir].x))))
-				result = false;
-		}
-		return result;
 	}
 
 	copyArray = array => {

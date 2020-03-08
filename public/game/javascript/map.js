@@ -10,7 +10,6 @@ export class Map {
 					field: map[layer].field,
 					addSquad: function (squad) {
 						this.squads.push(squad);
-						console.log(squad.y, squad.x);
 						this.field[squad.y][squad.x] = squad;
 					}
 				};

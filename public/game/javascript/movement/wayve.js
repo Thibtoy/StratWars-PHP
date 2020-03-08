@@ -1,10 +1,10 @@
 import {Impulse} from './Impulse.js';
 
 const DIRECTION = {
-	TOP: {y: -1, x: 0, mouve: "MOUVE_TOP"},
-	DOWN: {y: 1, x: 0, mouve: "MOUVE_DOWN"},
-	RIGHT: {y: 0, x: 1, mouve: "MOUVE_RIGHT"},
-	LEFT:  {y: 0, x: -1, mouve: "MOUVE_LEFT"}
+	TOP: {y: -1, x: 0, move: "MOVE_TOP"},
+	DOWN: {y: 1, x: 0, move: "MOVE_DOWN"},
+	RIGHT: {y: 0, x: 1, move: "MOVE_RIGHT"},
+	LEFT:  {y: 0, x: -1, move: "MOVE_LEFT"}
 }
 
 export class Wayve {
@@ -14,7 +14,7 @@ export class Wayve {
 		this.reachable = new Object();
 		this.statut = "run";
 		for (let dir in DIRECTION) {
-			if (this.mouveIsPossible(DIRECTION[dir])) {
+			if (this.moveIsPossible(DIRECTION[dir])) {
 				let way = new Impulse(this.state, DIRECTION[dir], this.reachable);
 				way.impulseList.push(way);
 				way.impulse();
@@ -39,7 +39,7 @@ export class Wayve {
 		}
 	}
 
-	mouveIsPossible = direction => {//il faut gérer les déplacements 1 à 1, les scenarios se bloquent mutuellement
+	moveIsPossible = direction => {//il faut gérer les déplacements 1 à 1, les scenarios se bloquent mutuellement
 		if (this.state.map.battleField.field[this.state.position.y + direction.y][this.state.position.x + direction.x] != "09")
 			return true;
 		else return false;
