@@ -37,10 +37,16 @@ export default class GuessBestWays {
 							run: true
 						};
 						if (currentPosition.cost > this.state.move) continue;
-						else if ((currentPosition.y >= 0 && currentPosition.y < this.state.map.getHeight()) && (currentPosition.x >= 0 && currentPosition.x < this.state.map.getWidth())) { 
+						else if ((currentPosition.y >= 0 
+								&& currentPosition.y < this.state.map.getHeight()) 
+									&& (currentPosition.x >= 0 
+										&& currentPosition.x < this.state.map.getWidth())) { 
 			    			if (this.state.map.battleField.field[currentPosition.y][currentPosition.x] != "09") {
-			    				let position = this.positions.find(position => ((position.x == currentPosition.x) && (position.y == currentPosition.y)));
-			    				currentPosition.cost = (this.state.map.battleField.field[currentPosition.y][currentPosition.x] == "01")? currentPosition.cost + 0.6 : currentPosition.cost + 1;
+			    				let position = this.positions.find(
+			    					position => ((position.x == currentPosition.x) && (position.y == currentPosition.y))
+			    				);
+			    				currentPosition.cost = (this.state.map.battleField.field[currentPosition.y][currentPosition.x] == "01")? 
+			    					currentPosition.cost + 0.6 : currentPosition.cost + 1;
 			    				if (position) {
 			    					if (currentPosition.cost < position.cost) {
 			    						this.positions[this.positions.indexOf(position)] = currentPosition;
